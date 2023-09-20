@@ -54,32 +54,21 @@ class MainActivity : AppCompatActivity() {
                 number < numberazar -> tvmayormenor.text = "Más alto!!"
                 number == numberazar -> {
                     tvmayormenor.text = "Correcto"
-                    win()
+                    showAlert("Enorabuena", "Tardaste $intentos intentos en conseguirlo", "Volver a jugar")
                 }
             }
-        } else { notonrange() }
+        } else { showAlert("Lo sentimos", "El número $number salió fuera del rango (1-100)", "Volver a jugar") }
     }
 
-    private fun win() {
-        var builder = AlertDialog.Builder(this)
-        builder.setTitle("Enorabuena")
-        builder.setMessage("Tardaste $intentos intentos en conseguirlo")
-        builder.setPositiveButton("Volver a jugar") { _ , _ ->
+    private fun showAlert(title:String, msg:String, btnTxt:String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(msg)
+        builder.setPositiveButton(btnTxt) { _ , _ ->
             restart()
         }
         builder.setCancelable(false)
         builder.show()
-    }
-
-    private fun notonrange() {
-        var builder2 = AlertDialog.Builder(this)
-        builder2.setTitle("LO SENTIMOS!")
-        builder2.setMessage("Number : $number, está fuera de rango (0-100)")
-        builder2.setPositiveButton("Volver a jugar") { _ , _ ->
-            restart()
-        }
-        builder2.setCancelable(false)
-        builder2.show()
     }
 
     private fun restart() {
